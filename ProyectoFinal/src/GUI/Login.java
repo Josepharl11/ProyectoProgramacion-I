@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 public class Login extends javax.swing.JFrame {
 	
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField passwordField;
     public Login() {
     	
     	
@@ -30,6 +30,7 @@ public class Login extends javax.swing.JFrame {
         panelBackGround.add(panelLogin);
         panelLogin.setLayout(null);
         
+        
         JLabel lblIniciaSesion = new JLabel("Inicia sesión");
         lblIniciaSesion.setHorizontalAlignment(SwingConstants.CENTER);
         lblIniciaSesion.setForeground(new Color(51, 132, 182));
@@ -50,12 +51,6 @@ public class Login extends javax.swing.JFrame {
         panelLogin.add(textField);
         textField.setColumns(10);
         
-        textField_1 = new JTextField();
-        textField_1.setFont(new Font("Sentic", Font.PLAIN, 18));
-        textField_1.setColumns(10);
-        textField_1.setBounds(23, 263, 329, 37);
-        panelLogin.add(textField_1);
-        
         JLabel lblContrasena = new JLabel("Contraseña");
         lblContrasena.setHorizontalAlignment(SwingConstants.LEFT);
         lblContrasena.setForeground(new Color(51, 132, 182));
@@ -68,6 +63,10 @@ public class Login extends javax.swing.JFrame {
         btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnIniciar.setBounds(134, 365, 89, 53);
         panelLogin.add(btnIniciar);
+        
+        passwordField = new JPasswordField();
+        passwordField.setBounds(23, 263, 331, 37);
+        panelLogin.add(passwordField);
         
         btnIniciar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
