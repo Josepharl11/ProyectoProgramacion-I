@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 
-
 public class Proveedores extends JPanel{
 	private JTable table;
 	public Proveedores() {
@@ -25,7 +24,5 @@ public class Proveedores extends JPanel{
 		lblProveedores.setFont(new Font("Sentic", Font.BOLD, 42));
 		lblProveedores.setBounds(23, 21, 357, 61);
 		panelProveedores.add(lblProveedores);
-		
-		
 	}
 }

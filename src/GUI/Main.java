@@ -44,6 +44,5 @@ public class Main {
 
         Login login = new Login();
         login.setVisible(true);
-		
 	}
 }

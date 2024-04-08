@@ -21,6 +21,7 @@ public class Inventario extends JPanel{
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTable table_1;
+	
 	public Inventario() {
 		setLayout(new BorderLayout(0, 0));
 		setSize(960, 761);
@@ -29,9 +30,7 @@ public class Inventario extends JPanel{
 		panelInventario.setBackground(Color.WHITE);
 		add(panelInventario, BorderLayout.CENTER);
 		panelInventario.setLayout(null);
-		
-		
-		
+
 		JLabel lblInventario = new JLabel("Inventario");
 		lblInventario.setIcon(new ImageIcon(Inventario.class.getResource("/images/material-symbols_inventory-rounded.png")));
 		lblInventario.setIconTextGap(20);

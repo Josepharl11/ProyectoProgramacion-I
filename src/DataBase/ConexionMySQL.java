@@ -55,7 +55,6 @@ public class ConexionMySQL {
 	    return null;
 	}
 
-	
 	static class getClose extends Thread {
 		@Override
 		public void run() {

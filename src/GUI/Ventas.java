@@ -105,8 +105,7 @@ public class Ventas extends JPanel{
 	     lblDescuento.setFont(new Font("Helvetica", Font.BOLD, 18));
 	     lblDescuento.setBounds(505, 82, 157, 22);
 	     panelFormulario.add(lblDescuento);
-	     
-	     
+
 	     textField_1 = new JTextField();
 	     textField_1.setColumns(10);
 	     textField_1.setBounds(505, 104, 193, 32);
@@ -118,9 +117,7 @@ public class Ventas extends JPanel{
 	     textField_2.setColumns(10);
 	     textField_2.setBounds(15, 177, 193, 32);
 	     panelFormulario.add(textField_2);
-	     
-	     
-	     
+
 	     JLabel lblPrecio_1 = new JLabel("% ITBIS");
 	     lblPrecio_1.setForeground(new Color(29, 53, 87));
 	     lblPrecio_1.setFont(new Font("Helvetica", Font.BOLD, 18));
@@ -134,7 +131,6 @@ public class Ventas extends JPanel{
 	     textField_3.setBounds(274, 177, 193, 32);
 	     panelFormulario.add(textField_3);
 
-	     
 	     JLabel lblPrecio_2 = new JLabel("Existencia");
 	     lblPrecio_2.setForeground(new Color(29, 53, 87));
 	     lblPrecio_2.setFont(new Font("Helvetica", Font.BOLD, 18));
@@ -195,11 +191,7 @@ public class Ventas extends JPanel{
 	     lblCantidadVariable.setFont(new Font("Helvetica", Font.BOLD, 18));
 	     lblCantidadVariable.setBounds(193, 361, 72, 22);
 	     panelFormulario.add(lblCantidadVariable);
-	     
-	     
-	     
-	     
-	     
+
 	     JLabel lblCantidad_1_1 = new JLabel("Comentario:");
 	     lblCantidad_1_1.setForeground(new Color(29, 53, 87));
 	     lblCantidad_1_1.setFont(new Font("Helvetica", Font.BOLD, 18));

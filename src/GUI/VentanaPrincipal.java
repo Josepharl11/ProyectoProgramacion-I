@@ -24,7 +24,7 @@ public class VentanaPrincipal extends JFrame {
     }
     
     public VentanaPrincipal(String nombreUsuario, String cargoEmpleado) {
-    	setTitle("Gestor de proyectos");
+    	 setTitle("Gestor de proyectos");
 	     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(1280, 800);
 	     setResizable(false);
@@ -36,17 +36,12 @@ public class VentanaPrincipal extends JFrame {
 	
 	     getContentPane().add(Background);
 	     Background.setLayout(null);
-	     
-	    
-	     
+
 	     JScrollPane scrollPaneContenido = new JScrollPane();
 	     scrollPaneContenido.setBounds(306, 0, 960, 697);
 	     scrollPaneContenido.setSize(960, 761);
 	     Background.add(scrollPaneContenido);
-	     
-	     
-	   
-	     
+
 	     JPanel PanelMenu = new JPanel();
 	     PanelMenu.setBackground(new Color(51, 132, 182));
 	     PanelMenu.setBounds(0, 0, 307, 761);
@@ -196,7 +191,6 @@ public class VentanaPrincipal extends JFrame {
 	    	        scrollPaneContenido.repaint();
 	    	    }
 	    	});
-
 	     
 	     btnMenuVentas.setBorderPainted(false);
 	     btnMenuVentas.setMargin(new Insets(2, 25, 2, 14));
@@ -226,9 +220,6 @@ public class VentanaPrincipal extends JFrame {
 	     btnLogout.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/ic_outline-logout.png")));
 	     btnLogout.setBackground(new Color(51, 132, 182));
 	     btnLogout.setBounds(10, 688, 200, 62);
-	     PanelMenu.add(btnLogout);
-	     
-	     
-	      
+	     PanelMenu.add(btnLogout);   
 	}
 }

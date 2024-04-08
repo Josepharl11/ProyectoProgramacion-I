@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Usuarios extends JPanel{
 	private JTable table;
 	private JTextField textField;
@@ -19,6 +18,7 @@ public class Usuarios extends JPanel{
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTable table_1;
+	
 	public Usuarios() {
 		setLayout(new BorderLayout(0, 0));
 		setSize(960, 761);
@@ -183,9 +183,5 @@ public class Usuarios extends JPanel{
 			}
 		));
 		scrollPane.setViewportView(table_1);
-		
-		
-		
-		
 	}
 }
