@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Desicion extends javax.swing.JFrame {
+public class Decision extends javax.swing.JFrame {
 	private VentanaPrincipal ventanaPrincipal;
 	private String nombreUsuario;
 	
-	public Desicion() {
+	public Decision() {
 		initComponents();
 	}
 	
-	public Desicion(String nombreUsuario, String cargoEmpleado) {
+	public Decision(String nombreUsuario, String cargoEmpleado) {
 		this.nombreUsuario = nombreUsuario;
 		initComponents();
 		ventanaPrincipal = new VentanaPrincipal(nombreUsuario, cargoEmpleado);
@@ -22,6 +22,7 @@ public class Desicion extends javax.swing.JFrame {
 		setTitle("Gestor de proyectos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 800);
+        setResizable(false);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 
         JPanel panelBackGround = new JPanel();
@@ -39,7 +40,7 @@ public class Desicion extends javax.swing.JFrame {
         btnVentas.setHorizontalAlignment(SwingConstants.LEFT);
         btnVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnVentas.setIconTextGap(70);
-        btnVentas.setIcon(new ImageIcon(Desicion.class.getResource("/images/mdi_cartPrincipal.png")));
+        btnVentas.setIcon(new ImageIcon(Decision.class.getResource("/images/mdi_cartPrincipal.png")));
         btnVentas.setForeground(Color.WHITE);
         btnVentas.setBackground(new Color(230, 57, 70));
         btnVentas.setBounds(430, 212, 404, 92);
@@ -50,7 +51,7 @@ public class Desicion extends javax.swing.JFrame {
         	public void actionPerformed(ActionEvent e) {
         		VentanaPrincipal ventanaprincipal= new VentanaPrincipal();
         		ventanaprincipal.setVisible(true);
-        		Desicion.this.setVisible(false);
+        		Decision.this.setVisible(false);
         	}
         });
         
@@ -60,14 +61,14 @@ public class Desicion extends javax.swing.JFrame {
         	public void actionPerformed(ActionEvent e) {
         		VentanaPrincipal ventanaprincipal= new VentanaPrincipal();
         		ventanaprincipal.setVisible(true);
-        		Desicion.this.setVisible(false);
+        		Decision.this.setVisible(false);
         	}
         });
         btnInventario.setBorderPainted(false);
         btnInventario.setFocusable(false);
         btnInventario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnInventario.setMargin(new Insets(2, 19, 2, 14));
-        btnInventario.setIcon(new ImageIcon(Desicion.class.getResource("/images/material-symbols_inventory-roundedPrincipal.png")));
+        btnInventario.setIcon(new ImageIcon(Decision.class.getResource("/images/material-symbols_inventory-roundedPrincipal.png")));
         btnInventario.setIconTextGap(40);
         btnInventario.setHorizontalAlignment(SwingConstants.LEFT);
         btnInventario.setForeground(Color.WHITE);
@@ -81,7 +82,7 @@ public class Desicion extends javax.swing.JFrame {
         	public void actionPerformed(ActionEvent e) {
         		VentanaPrincipal ventanaprincipal= new VentanaPrincipal();
         		ventanaprincipal.setVisible(true);
-        		Desicion.this.setVisible(false);
+        		Decision.this.setVisible(false);
         	}
         });
         btnUsuarios.setBorderPainted(false);
@@ -89,7 +90,7 @@ public class Desicion extends javax.swing.JFrame {
         btnUsuarios.setHorizontalAlignment(SwingConstants.LEFT);
         btnUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnUsuarios.setMargin(new Insets(2, 19, 1, 14));
-        btnUsuarios.setIcon(new ImageIcon(Desicion.class.getResource("/images/mdi_userPrincipal.png")));
+        btnUsuarios.setIcon(new ImageIcon(Decision.class.getResource("/images/mdi_userPrincipal.png")));
         btnUsuarios.setIconTextGap(50);
         btnUsuarios.setForeground(Color.WHITE);
         btnUsuarios.setFont(new Font("Sentic", Font.BOLD, 40));
@@ -116,14 +117,14 @@ public class Desicion extends javax.swing.JFrame {
         	public void actionPerformed(ActionEvent e) {
         		Login login = new Login();
         		login.setVisible(true);
-        		Desicion.this.setVisible(false);
+        		Decision.this.setVisible(false);
         		
         	}
         });
         btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
         btnNewButton.setBorderPainted(false);
         btnNewButton.setBackground(new Color(0, 64, 128));
-        btnNewButton.setIcon(new ImageIcon(Desicion.class.getResource("/images/ic_outline-logout.png")));
+        btnNewButton.setIcon(new ImageIcon(Decision.class.getResource("/images/ic_outline-logout.png")));
         btnNewButton.setBounds(29, 648, 78, 82);
         panelBackGround.add(btnNewButton);
     }

@@ -1,3 +1,4 @@
+CREATE DATABASE SistemaVentas;
 USE SistemaVentas;
 
 CREATE TABLE clientes (
@@ -66,6 +67,6 @@ CREATE TABLE detalle_factura (
     id_producto INT,
     cantidad INT,
     precio_unitario DOUBLE,
-    FOREIGN KEY (idfactura) REFERENCES facturas(id_factura),
-    FOREIGN KEY (idproducto) REFERENCES productos(id_producto)
+    FOREIGN KEY (id_factura) REFERENCES facturas(id_factura),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );

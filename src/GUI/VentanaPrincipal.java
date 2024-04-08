@@ -24,22 +24,33 @@ public class VentanaPrincipal extends JFrame {
     }
     
     public VentanaPrincipal(String nombreUsuario, String cargoEmpleado) {
-		 setTitle("Gestor de proyectos");
+    	setTitle("Gestor de proyectos");
 	     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(1280, 800);
+	     setResizable(false);
 	     setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 	
-	     JPanel panelAñadir = new JPanel();
-	     panelAñadir.setBackground(Color.WHITE);
-	     getContentPane().add(panelAñadir, BorderLayout.CENTER);
+	     JPanel Background = new JPanel();
+	     Background.setBackground(Color.WHITE);
+	     getContentPane().add(Background, BorderLayout.CENTER);
 	
-	     getContentPane().add(panelAñadir);
-	     panelAñadir.setLayout(null);
+	     getContentPane().add(Background);
+	     Background.setLayout(null);
+	     
+	    
+	     
+	     JScrollPane scrollPaneContenido = new JScrollPane();
+	     scrollPaneContenido.setBounds(306, 0, 960, 697);
+	     scrollPaneContenido.setSize(960, 761);
+	     Background.add(scrollPaneContenido);
+	     
+	     
+	   
 	     
 	     JPanel PanelMenu = new JPanel();
 	     PanelMenu.setBackground(new Color(51, 132, 182));
 	     PanelMenu.setBounds(0, 0, 307, 761);
-	     panelAñadir.add(PanelMenu);
+	     Background.add(PanelMenu);
 	     PanelMenu.setLayout(null);
 	     setVisible(true);
 	     
@@ -61,7 +72,7 @@ public class VentanaPrincipal extends JFrame {
 	     btnButtonReturn.setFocusable(false);
 	     btnButtonReturn.addActionListener(new ActionListener() {
 	     	public void actionPerformed(ActionEvent e) {
-	     		Desicion desicion = new Desicion();
+	     		Decision desicion = new Decision();
 	     		desicion.setVisible(true);
 	     		VentanaPrincipal.this.setVisible(false);
 	     		
@@ -88,6 +99,20 @@ public class VentanaPrincipal extends JFrame {
 	     panelDeRoles.add(lblTipoDeRol);
 	     
 	     JButton btnMenuProveedores = new JButton("Proveedores");
+	     btnMenuProveedores.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 
+	             Proveedores proveedores = new Proveedores();
+	             
+	             // Agrega el inventario al panel contenido del JScrollPane
+	             scrollPaneContenido.setViewportView(proveedores);
+	             
+	             // Llama a revalidate() y repaint() para actualizar la interfaz de usuario
+	             scrollPaneContenido.revalidate();
+	             scrollPaneContenido.repaint();
+	         }
+	     });
+	     
 	     btnMenuProveedores.setBorderPainted(false);
 	     btnMenuProveedores.setIconTextGap(20);
 	     btnMenuProveedores.setMargin(new Insets(2, 25, 2, 14));
@@ -101,6 +126,21 @@ public class VentanaPrincipal extends JFrame {
 	     PanelMenu.add(btnMenuProveedores);
 	     
 	     JButton btnMenuUsuarios = new JButton("Usuarios");
+	     
+	     btnMenuUsuarios.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 
+	             Usuarios usuarios = new Usuarios();
+	             
+	             // Agrega el inventario al panel contenido del JScrollPane
+	             scrollPaneContenido.setViewportView(usuarios);
+	             
+	             // Llama a revalidate() y repaint() para actualizar la interfaz de usuario
+	             scrollPaneContenido.revalidate();
+	             scrollPaneContenido.repaint();
+	         }
+	     });
+	     
 	     btnMenuUsuarios.setIconTextGap(20);
 	     btnMenuUsuarios.setMargin(new Insets(2, 25, 2, 14));
 	     btnMenuUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -111,9 +151,23 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuUsuarios.setFont(new Font("Sentic", Font.BOLD, 18));
 	     btnMenuUsuarios.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/UserVectorcolumna.png")));
 	     btnMenuUsuarios.setBounds(0, 318, 307, 62);
+
 	     PanelMenu.add(btnMenuUsuarios);
 	     
 	     JButton btnMenuInventario = new JButton("Inventario");
+	     btnMenuInventario.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	        	 
+	             Inventario inventario = new Inventario();
+	             // Agrega el inventario al panel contenido del JScrollPane
+	             scrollPaneContenido.setViewportView(inventario);
+	             
+	             // Llama a revalidate() y repaint() para actualizar la interfaz de usuario
+	             scrollPaneContenido.revalidate();
+	             scrollPaneContenido.repaint();
+	         }
+	     });
+	     
 	     btnMenuInventario.setBorderPainted(false);
 	     btnMenuInventario.setIconTextGap(20);
 	     btnMenuInventario.setMargin(new Insets(2, 25, 2, 14));
@@ -126,7 +180,24 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuInventario.setBounds(0, 195, 307, 62);
 	     PanelMenu.add(btnMenuInventario);
 	     
+	     
+
 	     JButton btnMenuVentas = new JButton("Ventas");
+	     btnMenuVentas.addActionListener(new ActionListener() {
+	    	    public void actionPerformed(ActionEvent e) {
+	    	        // Crea una instancia de la clase Ventas
+	    	        Ventas ventas = new Ventas();
+
+	    	        // Establece el panel de ventas como el componente a mostrar en el JScrollPane
+	    	        scrollPaneContenido.setViewportView(ventas);
+
+	    	        // Actualiza la interfaz de usuario
+	    	        scrollPaneContenido.revalidate();
+	    	        scrollPaneContenido.repaint();
+	    	    }
+	    	});
+
+	     
 	     btnMenuVentas.setBorderPainted(false);
 	     btnMenuVentas.setMargin(new Insets(2, 25, 2, 14));
 	     btnMenuVentas.setIconTextGap(20);
@@ -139,216 +210,25 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuVentas.setBounds(0, 133, 307, 62);
 	     PanelMenu.add(btnMenuVentas);
 	     
-	     JScrollPane scrollPaneVENTAS = new JScrollPane();
-	     scrollPaneVENTAS.setBounds(306, 0, 958, 822);
-	     panelAñadir.add(scrollPaneVENTAS);
+	     JButton btnLogout = new JButton("Cerrar sesion");
+	     btnLogout.setForeground(Color.WHITE);
+	     btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+	     btnLogout.setBorderPainted(false);
 	     
-	     JPanel panel_2 = new JPanel();
-	     scrollPaneVENTAS.setViewportView(panel_2);
-	     panel_2.setLayout(null);
-	     
-	     JLabel lblNewLabel = new JLabel("Ventas");
-	     lblNewLabel.setIconTextGap(20);
-	     lblNewLabel.setForeground(new Color(29, 53, 87));
-	     lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/mdi_cart.png")));
-	     lblNewLabel.setBounds(27, 24, 286, 61);
-	     lblNewLabel.setFont(new Font("Sentic", Font.BOLD, 42));
-	     panel_2.add(lblNewLabel);
-	     
-	     JScrollPane scrollPane_formulario = new JScrollPane();
-	     scrollPane_formulario.setBounds(27, 111, 907, 401);
-	     panel_2.add(scrollPane_formulario);
-	     
-	     JPanel panel_1 = new JPanel();
-	     panel_1.setBackground(new Color(215, 215, 215));
-	     scrollPane_formulario.setViewportView(panel_1);
-	     panel_1.setLayout(null);
-	     
-	     JLabel lblArticulo = new JLabel("Articulo");
-	     lblArticulo.setForeground(new Color(29, 53, 87));
-	     lblArticulo.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblArticulo.setBounds(21, 11, 107, 22);
-	     panel_1.add(lblArticulo);
-	     
-	     JSpinner spinner = new JSpinner();
-	     spinner.setRequestFocusEnabled(false);
-	     spinner.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-	     spinner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	     spinner.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-	     spinner.setModel(new SpinnerNumberModel(Float.valueOf(1), Float.valueOf(1), null, Float.valueOf(1)));
-	     spinner.setBounds(21, 104, 187, 32);
-	     panel_1.add(spinner);
-	     
-	     JComboBox comboBox = new JComboBox();
-	     comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-	     comboBox.setModel(new DefaultComboBoxModel(new String[] {"Articulo 1", "Articulo 2", "Articulo 3"}));
-	     comboBox.setBounds(21, 33, 854, 32);
-	     panel_1.add(comboBox);
-	     
-	     JLabel lblCantidad = new JLabel("Cantidad");
-	     lblCantidad.setForeground(new Color(29, 53, 87));
-	     lblCantidad.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidad.setBounds(21, 82, 107, 22);
-	     panel_1.add(lblCantidad);
-	     
-	     JLabel lblPrecio = new JLabel("Precio");
-	     lblPrecio.setForeground(new Color(29, 53, 87));
-	     lblPrecio.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblPrecio.setBounds(274, 82, 107, 22);
-	     panel_1.add(lblPrecio);
-	     
-	     textField = new JTextField();
-	     textField.setText("$");
-	     textField.setBounds(274, 104, 193, 32);
-	     panel_1.add(textField);
-	     textField.setColumns(10);
-	     
-	     JLabel lblDescuento = new JLabel("% Descuento");
-	     lblDescuento.setForeground(new Color(29, 53, 87));
-	     lblDescuento.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblDescuento.setBounds(505, 82, 157, 22);
-	     panel_1.add(lblDescuento);
-	     
-	     textField_1 = new JTextField();
-	     textField_1.setColumns(10);
-	     textField_1.setBounds(505, 104, 193, 32);
-	     panel_1.add(textField_1);
-	     
-	     textField_2 = new JTextField();
-	     textField_2.setEnabled(false);
-	     textField_2.setText("18%");
-	     textField_2.setColumns(10);
-	     textField_2.setBounds(15, 177, 193, 32);
-	     panel_1.add(textField_2);
-	     
-	     JLabel lblPrecio_1 = new JLabel("% ITBIS");
-	     lblPrecio_1.setForeground(new Color(29, 53, 87));
-	     lblPrecio_1.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblPrecio_1.setBounds(15, 155, 107, 22);
-	     panel_1.add(lblPrecio_1);
-	     
-	     textField_3 = new JTextField();
-	     textField_3.setEnabled(false);
-	     textField_3.setText("0");
-	     textField_3.setColumns(10);
-	     textField_3.setBounds(274, 177, 193, 32);
-	     panel_1.add(textField_3);
-	     
-	     JLabel lblPrecio_2 = new JLabel("Existencia");
-	     lblPrecio_2.setForeground(new Color(29, 53, 87));
-	     lblPrecio_2.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblPrecio_2.setBounds(274, 155, 107, 22);
-	     panel_1.add(lblPrecio_2);
-	     
-	     JButton btnNewButton = new JButton("Añadir");
-	     btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	     btnNewButton.setFont(new Font("Sentic", Font.BOLD, 14));
-	     btnNewButton.setForeground(new Color(255, 255, 255));
-	     btnNewButton.setBorderPainted(false);
-	     btnNewButton.setBackground(new Color(70, 130, 180));
-	     btnNewButton.setBounds(505, 174, 99, 35);
-	     panel_1.add(btnNewButton);
-	     
-	     JButton btnActualizar = new JButton("Actualizar");
-	     btnActualizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	     btnActualizar.setFont(new Font("Sentic", Font.BOLD, 14));
-	     btnActualizar.setForeground(Color.WHITE);
-	     btnActualizar.setBorderPainted(false);
-	     btnActualizar.setBackground(new Color(32, 178, 170));
-	     btnActualizar.setBounds(631, 172, 114, 35);
-	     panel_1.add(btnActualizar);
-	     
-	     JButton btnNewButton_2 = new JButton("");
-	     btnNewButton_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	     btnNewButton_2.setBorderPainted(false);
-	     btnNewButton_2.setBackground(new Color(220, 20, 60));
-	     btnNewButton_2.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/fluent_delete-16-filled.png")));
-	     btnNewButton_2.setBounds(782, 174, 54, 35);
-	     panel_1.add(btnNewButton_2);
-	     
-	     JScrollPane scrollPane_1 = new JScrollPane();
-	     scrollPane_1.setBounds(21, 238, 854, 112);
-	     panel_1.add(scrollPane_1);
-	     
-	     table = new JTable();
-	     scrollPane_1.setViewportView(table);
-	     table.setModel(new DefaultTableModel(
-	     	new Object[][] {
-	     		{null, null, null, null, null, null, null, null},
-	     		
-	     	},
-	     	new String[] {
-	     		"Articulo", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
-	     	}
-	     ));
-	     table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	     
-	     JLabel lblCantidad_1 = new JLabel("Total de articulos:");
-	     lblCantidad_1.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidad_1.setBounds(21, 361, 162, 22);
-	     panel_1.add(lblCantidad_1);
-	     
-	     JLabel lblCantidadVariable = new JLabel("X");
-	     lblCantidadVariable.setForeground(new Color(29, 53, 87));
-	     lblCantidadVariable.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidadVariable.setBounds(193, 361, 72, 22);
-	     panel_1.add(lblCantidadVariable);
-	     
-	     JLabel lblCantidad_1_1 = new JLabel("Comentario:");
-	     lblCantidad_1_1.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1_1.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidad_1_1.setBounds(50, 536, 162, 22);
-	     panel_2.add(lblCantidad_1_1);
-	     
-	     JTextPane textPane = new JTextPane();
-	     textPane.setBounds(50, 569, 445, 90);
-	     panel_2.add(textPane);
-	     
-	     JLabel lblCantidad_1_2 = new JLabel("Sub total: $");
-	     lblCantidad_1_2.setHorizontalAlignment(SwingConstants.TRAILING);
-	     lblCantidad_1_2.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1_2.setFont(new Font("Sentic", Font.PLAIN, 18));
-	     lblCantidad_1_2.setBounds(672, 534, 240, 22);
-	     panel_2.add(lblCantidad_1_2);
-	     
-	     JLabel lblCantidad_1_2_1 = new JLabel("Sub total: $");
-	     lblCantidad_1_2_1.setHorizontalAlignment(SwingConstants.TRAILING);
-	     lblCantidad_1_2_1.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1_2_1.setFont(new Font("Sentic", Font.PLAIN, 18));
-	     lblCantidad_1_2_1.setBounds(682, 555, 230, 22);
-	     panel_2.add(lblCantidad_1_2_1);
-	     
-	     JLabel lblCantidad_1_2_1_1 = new JLabel("Sub total: $");
-	     lblCantidad_1_2_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
-	     lblCantidad_1_2_1_1.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1_2_1_1.setFont(new Font("Sentic", Font.PLAIN, 18));
-	     lblCantidad_1_2_1_1.setBounds(682, 578, 230, 22);
-	     panel_2.add(lblCantidad_1_2_1_1);
-	     
-	     JLabel lblCantidad_1_2_1_2 = new JLabel("Sub total: $");
-	     lblCantidad_1_2_1_2.setHorizontalAlignment(SwingConstants.TRAILING);
-	     lblCantidad_1_2_1_2.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1_2_1_2.setFont(new Font("Sentic", Font.PLAIN, 18));
-	     lblCantidad_1_2_1_2.setBounds(682, 623, 230, 22);
-	     panel_2.add(lblCantidad_1_2_1_2);
-	     
-	     JButton btnFormaDePago = new JButton("Forma de pago");
-	     btnFormaDePago.setForeground(Color.WHITE);
-	     btnFormaDePago.setFont(new Font("Segoe UI", Font.BOLD, 14));
-	     btnFormaDePago.setBorderPainted(false);
-	     btnFormaDePago.setBackground(new Color(32, 178, 170));
-	     btnFormaDePago.setBounds(687, 694, 148, 35);
-	     panel_2.add(btnFormaDePago);
-	     
-	     JButton btnEliminarFacturafinal = new JButton("");
-	     btnEliminarFacturafinal.addActionListener(new ActionListener() {
+	     btnLogout.addActionListener(new ActionListener() {
 	     	public void actionPerformed(ActionEvent e) {
+	     		Login login = new Login();
+	     		login.setVisible(true);
+	     		VentanaPrincipal.this.setVisible(false);
 	     	}
 	     });
-	     btnEliminarFacturafinal.setBorder(new LineBorder(new Color(220, 20, 60), 2, true));
-	     btnEliminarFacturafinal.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/fluent_delete-16-filledrojo.png")));
-	     btnEliminarFacturafinal.setBounds(864, 694, 39, 35);
-	     panel_2.add(btnEliminarFacturafinal);
+	     
+	     btnLogout.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/ic_outline-logout.png")));
+	     btnLogout.setBackground(new Color(51, 132, 182));
+	     btnLogout.setBounds(10, 688, 200, 62);
+	     PanelMenu.add(btnLogout);
+	     
+	     
+	      
 	}
 }

@@ -5,11 +5,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="ProyectoFinal/src"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
 	<classpathentry kind="lib" path="ProyectoFinal/flatlaf/flatlaf-3.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JOSEPH/Desktop/Programming  and IT Apps/Tools/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar">
+	<classpathentry kind="lib" path="C:/Users/JOSEPH/Desktop/Homeworks/ITLA/Programming I/ProyectoProgramacionI/lib/mysql-connector-j-8.2.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

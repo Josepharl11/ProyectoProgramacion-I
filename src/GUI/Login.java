@@ -16,6 +16,7 @@ public class Login extends javax.swing.JFrame {
         setTitle("Iniciar sesión");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 800);
+        setResizable(false);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 
         JPanel panelBackGround = new JPanel();
@@ -85,8 +86,8 @@ public class Login extends javax.swing.JFrame {
                 if (nombreUsuario != null) {
                 	VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(nombreUsuario, cargoEmpleado);
                 	ventanaPrincipal.setVisible(true);
-                	Desicion desicion = new Desicion(nombreUsuario, cargoEmpleado);
-                	desicion.setVisible(true);
+                	Decision decision = new Decision(nombreUsuario, cargoEmpleado);
+                	decision.setVisible(true);
                 	Login.this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(Login.this, "Credenciales inválidas. Inténtalo de nuevo.");
