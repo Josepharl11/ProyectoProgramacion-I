@@ -11,16 +11,14 @@ CREATE TABLE clientes (
 
 DROP TABLE empleados;
 CREATE TABLE empleados (
-    id_empleado INT PRIMARY KEY,
+    cedula INT PRIMARY KEY,
     nombre VARCHAR(50),
     apellido VARCHAR(50),
     contraseña VARCHAR(50),
     cargo VARCHAR(50), -- adm o emp
-    salario DECIMAL(10, 2),
     direccion VARCHAR(255),
     telefono VARCHAR(20),
-    email VARCHAR(100),
-    fecha_nacimiento DATE
+    documento VARCHAR(100)
 );
 
 INSERT INTO empleados (id_empleado, nombre, apellido, contraseña, cargo, salario, direccion, telefono, email, fecha_nacimiento) 

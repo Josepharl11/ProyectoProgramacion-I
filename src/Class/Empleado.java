@@ -8,14 +8,11 @@ import java.util.Date;
 public class Empleado  extends Persona{
 
     private String cargo;
-    private double salario;
     private String contraseña;
 
-    public Empleado(String id, String nombre, String apellido, String contraseña, String direccion, String telefono, String email,
-                     Date fechaNacimiento, String cargo, double salario) {
-        super(nombre, apellido, direccion, telefono, email, id);
+    public Empleado(String nombre, String apellido, String documento, String tipoDocumento, String contraseña, String direccion, String telefono, String email, String cargo) {
+        super(nombre, apellido, documento, tipoDocumento, direccion, telefono, email);
         this.cargo = cargo;
-        this.salario = salario;
         this.contraseña = contraseña;
     }
 
@@ -26,12 +23,12 @@ public class Empleado  extends Persona{
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-
-    public double getSalario() {
-        return salario;
+    
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setSalario(double salario) {
-        this.salario = salario;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 }

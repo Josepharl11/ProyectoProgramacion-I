@@ -1,19 +1,17 @@
 package Class;
 
-import java.util.Date;
-
 /**
  * @author Cristian Ledesma
  */
 public abstract class Persona {
 
-
     private String nombre;
     private String apellido;
+    private String documento;
+    private String tipoDocumento;
     private String direccion;
     private String telefono;
     private String email;
-    private String id;
 
     public String getNombre() {
         return nombre;
@@ -29,6 +27,22 @@ public abstract class Persona {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+    
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+    
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 
     public String getDireccion() {
@@ -55,26 +69,17 @@ public abstract class Persona {
         this.email = email;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    
-    
     public Persona(){
         
     }
 
-    public Persona(String nombre, String apellido, String direccion, String telefono, String email, String id) {
+    public Persona(String nombre, String apellido, String documento, String tipoDocumento, String direccion, String telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.documento = documento;
+        this.tipoDocumento = tipoDocumento;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
-        this.id = id;
     }
 }

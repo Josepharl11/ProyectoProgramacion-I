@@ -6,8 +6,15 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import Class.Empleado;
+import DataBase.EmpleadoCRUD;
+
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class Usuarios extends JPanel{
@@ -142,12 +149,12 @@ public class Usuarios extends JPanel{
 				String numeroDocumento = txtEmpleadoDocumento.getText();
 				String telefonoEmpleado = txtEmpleadoTelefono.getText();
 				
-				DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
-		        
-		        Object[] filasTabla = {nombreEmpleado, apellidoEmpleado, passwordEmpleado, tipoDocumento, numeroDocumento, cargoEmpleado, direccionEmpleado, telefonoEmpleado};
-		        
-		        modelo.addRow(filasTabla);
+				Empleado empleado = new Empleado(nombreEmpleado, apellidoEmpleado, numeroDocumento, tipoDocumento, passwordEmpleado, direccionEmpleado, telefonoEmpleado, "", cargoEmpleado);
+		        EmpleadoCRUD.insertarEmpleado(empleado);
 				
+				DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
+		        Object[] filasTabla = {numeroDocumento, tipoDocumento, nombreEmpleado, apellidoEmpleado, passwordEmpleado, tipoDocumento, cargoEmpleado, direccionEmpleado, telefonoEmpleado};
+		        modelo.addRow(filasTabla);
 			}
 		});
 		btnNewButton.setForeground(Color.WHITE);
@@ -165,25 +172,65 @@ public class Usuarios extends JPanel{
 		btnActualizar.setBounds(665, 174, 114, 35);
 		panelFormularioUsuarios.add(btnActualizar);
 		
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		btnActualizar.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        int selectedRow = table_1.getSelectedRow();
+		        if (selectedRow != -1) {
+		            DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+		            String documento = txtEmpleadoDocumento.getText();
+		            String tipoDocumento = (String) comboTipoDocumento.getSelectedItem();
+		            String nombre = txtEmpleadoNombre.getText();
+		            String apellido = txtEmpleadoApellido.getText();
+		            String contraseña = txtEmpleadoPass.getText();
+		            String cargo = (String) comboCargoEmpleado.getSelectedItem();
+		            String direccion = txtEmpleadoDireccion.getText();
+		            String telefono = txtEmpleadoTelefono.getText();
+
+		            // Update the table
+		            model.setValueAt(documento, selectedRow, 0);
+		            model.setValueAt(tipoDocumento, selectedRow, 1);
+		            model.setValueAt(nombre, selectedRow, 2);
+		            model.setValueAt(apellido, selectedRow, 3);
+		            model.setValueAt(contraseña, selectedRow, 4);
+		            model.setValueAt(cargo, selectedRow, 5);
+		            model.setValueAt(direccion, selectedRow, 6);
+		            model.setValueAt(telefono, selectedRow, 7);
+
+		            // Update the database
+		            Empleado empleado = new Empleado(nombre, apellido, documento, tipoDocumento, contraseña, direccion, telefono, "", cargo);
+		            EmpleadoCRUD.actualizarEmpleado(empleado);
+
+		            JOptionPane.showMessageDialog(null, "Empleado actualizado correctamente.", "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+		
+		JButton btnEliminar = new JButton("");
+		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = table_1.getSelectedRow();
 		        
 		        if (selectedRow != -1) {
 		            DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 		            
+		            String numeroDocumento = (String) model.getValueAt(selectedRow, 0);
+		            
 		            model.removeRow(selectedRow);
+		            
+		            EmpleadoCRUD.eliminarEmpleado(numeroDocumento);
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 			}
 		});
-		btnNewButton_2.setIcon(new ImageIcon(Usuarios.class.getResource("/images/fluent_delete-16-filled.png")));
-		btnNewButton_2.setBorderPainted(false);
-		btnNewButton_2.setBackground(new Color(220, 20, 60));
-		btnNewButton_2.setBounds(800, 174, 43, 35);
-		panelFormularioUsuarios.add(btnNewButton_2);
+		btnEliminar.setIcon(new ImageIcon(Usuarios.class.getResource("/images/fluent_delete-16-filled.png")));
+		btnEliminar.setBorderPainted(false);
+		btnEliminar.setBackground(new Color(220, 20, 60));
+		btnEliminar.setBounds(800, 174, 43, 35);
+		panelFormularioUsuarios.add(btnEliminar);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -207,9 +254,54 @@ public class Usuarios extends JPanel{
 			new Object[][] {
 			},
 			new String[] {
-				"Nombres", "Apellidos", "Contraseña", "Tipo de documento", "Número de documento", "Cargo", "Dirección", "Teléfono"
+				"Número de documento", "Nombre", "Apellido", "Contraseña", "Tipo de documento", "Cargo", "Dirección", "Teléfono"
 			}
 		));
 		scrollPane.setViewportView(table_1);
+		
+		table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent e) {
+		        if (!e.getValueIsAdjusting()) {
+		            int selectedRow = table_1.getSelectedRow();
+		            if (selectedRow != -1) {
+		                DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+		                String documento = (String) model.getValueAt(selectedRow, 0);
+		                String tipoDocumento = (String) model.getValueAt(selectedRow, 1);
+		                String nombre = (String) model.getValueAt(selectedRow, 2);
+		                String apellido = (String) model.getValueAt(selectedRow, 3);
+		                String contraseña = (String) model.getValueAt(selectedRow, 4);
+		                String cargo = (String) model.getValueAt(selectedRow, 5);
+		                String direccion = (String) model.getValueAt(selectedRow, 6);
+		                String telefono = (String) model.getValueAt(selectedRow, 7);
+		                
+		                txtEmpleadoNombre.setText(nombre);
+		                txtEmpleadoApellido.setText(apellido);
+		                txtEmpleadoPass.setText(contraseña);
+		                txtEmpleadoDocumento.setText(documento);
+		                comboTipoDocumento.setSelectedItem(tipoDocumento);
+		                comboCargoEmpleado.setSelectedItem(cargo);
+		                txtEmpleadoDireccion.setText(direccion);
+		                txtEmpleadoTelefono.setText(telefono);
+		            }
+		        }
+		    }
+		});
+		
+		agregarTablaEmpleado();
 	}
+	
+	private void agregarTablaEmpleado() {
+        DefaultTableModel modelo = (DefaultTableModel) table_1.getModel();
+        modelo.setRowCount(0); // Clear existing rows
+        
+        // Retrieve employees from the database
+        List<Empleado> empleados = EmpleadoCRUD.mostrarEmpleado();
+        
+        // Add employees to the table
+        for (Empleado empleado : empleados) {
+            Object[] fila = {empleado.getDocumento(), empleado.getNombre(), empleado.getApellido(), empleado.getContraseña(), empleado.getTipoDocumento(), empleado.getCargo(), empleado.getDireccion(), empleado.getTelefono()};
+            modelo.addRow(fila);
+        }
+    }
 }

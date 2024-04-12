@@ -6,7 +6,7 @@ package Class;
  */
 public class Proveedor {
 
- private String nombre;
+	private String nombre;
     private String direccion;
     private String telefono;
     private String email;

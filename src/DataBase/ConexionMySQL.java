@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Class.Empleado;
 
 public class ConexionMySQL {
 	public static Connection connection;
@@ -13,7 +14,7 @@ public class ConexionMySQL {
 			if (connection == null) {
 				Runtime.getRuntime().addShutdownHook(new getClose());
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/SistemaVentas", "root", "");
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/SistemaVentas", "root", "reyesledesma11");
 				System.out.println("Entro al DB");
 			}
 			return connection;
@@ -54,7 +55,7 @@ public class ConexionMySQL {
 	    }
 	    return null;
 	}
-
+	
 	static class getClose extends Thread {
 		@Override
 		public void run() {
