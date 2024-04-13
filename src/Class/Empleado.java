@@ -1,4 +1,3 @@
-
 package Class;
 
 import java.util.Date;
@@ -9,15 +8,12 @@ import java.util.Date;
 public class Empleado  extends Persona{
 
     private String cargo;
-    private double salario;
-    private String departamento;
+    private String contraseña;
 
-    public Empleado(String nombre, String apellido, String direccion, String telefono, String email,
-                    String id, Date fechaNacimiento, String cargo, double salario, String departamento) {
-        super(nombre, apellido, direccion, telefono, email, id);
+    public Empleado(String nombre, String apellido, String documento, String tipoDocumento, String contraseña, String direccion, String telefono, String email, String cargo) {
+        super(nombre, apellido, documento, tipoDocumento, direccion, telefono, email);
         this.cargo = cargo;
-        this.salario = salario;
-        this.departamento = departamento;
+        this.contraseña = contraseña;
     }
 
     public String getCargo() {
@@ -27,20 +23,12 @@ public class Empleado  extends Persona{
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-
-    public double getSalario() {
-        return salario;
+    
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setSalario(double salario) {
-        this.salario = salario;
-    }
-
-    public String getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 }
