@@ -9,7 +9,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.EmptyBorder;
 
-
 public class VentanaPrincipal extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
@@ -19,9 +18,9 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel lblNombreDeUsuario;
     private JLabel lblTipoDeRol;
     
-    public VentanaPrincipal() {
+    //public VentanaPrincipal() {
     	
-    }
+    //}
     
     public VentanaPrincipal(String nombreUsuario, String cargoEmpleado) {
     	 setTitle("Gestor de proyectos");
@@ -62,18 +61,6 @@ public class VentanaPrincipal extends JFrame {
 	     lblNewLabel_1.setBounds(45, 22, 67, 71);
 	     panelDeRoles.add(lblNewLabel_1);
 	     
-	     JButton btnButtonReturn = new JButton("");
-	     btnButtonReturn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	     btnButtonReturn.setFocusable(false);
-	     btnButtonReturn.addActionListener(new ActionListener() {
-	     	public void actionPerformed(ActionEvent e) {
-	     		Decision desicion = new Decision();
-	     		desicion.setVisible(true);
-	     		VentanaPrincipal.this.setVisible(false);
-	     		
-	     	}
-	     });
-	     
 	     JButton btnMenuVentas = new JButton("Ventas");
 	     btnMenuVentas.addActionListener(new ActionListener() {
 	    	    public void actionPerformed(ActionEvent e) {
@@ -96,12 +83,6 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuVentas.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/mdi_cart-1columna.png")));
 	     btnMenuVentas.setBounds(0, 133, 307, 62);
 	     PanelMenu.add(btnMenuVentas);
-	     
-	     btnButtonReturn.setBorderPainted(false);
-	     btnButtonReturn.setBackground(new Color(43, 116, 171));
-	     btnButtonReturn.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/Vector.png")));
-	     btnButtonReturn.setBounds(10, 27, 40, 36);
-	     panelDeRoles.add(btnButtonReturn);
 	     
 	     JLabel lblNombreDeUsuario = new JLabel();
 	     lblNombreDeUsuario.setText(nombreUsuario);
@@ -141,7 +122,7 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuProveedores.setBackground(new Color(51, 132, 182));
 	     btnMenuProveedores.setFont(new Font("Sentic", Font.BOLD, 18));
 	     btnMenuProveedores.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/iconamoon_delivery-fast-fillcolumna.png")));
-	     btnMenuProveedores.setBounds(0, 256, 307, 62);
+	     btnMenuProveedores.setBounds(0, 316, 307, 62);
 	     PanelMenu.add(btnMenuProveedores);
 	     
 	     JButton btnMenuUsuarios = new JButton("Usuarios");
@@ -169,7 +150,7 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuUsuarios.setBackground(new Color(51, 132, 182));
 	     btnMenuUsuarios.setFont(new Font("Sentic", Font.BOLD, 18));
 	     btnMenuUsuarios.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/UserVectorcolumna.png")));
-	     btnMenuUsuarios.setBounds(0, 318, 307, 62);
+	     btnMenuUsuarios.setBounds(0, 378, 307, 62);
 
 	     PanelMenu.add(btnMenuUsuarios);
 	     
@@ -196,7 +177,7 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuInventario.setForeground(Color.WHITE);
 	     btnMenuInventario.setBackground(new Color(51, 132, 182));
 	     btnMenuInventario.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/material-symbols_inventory-rounded-1columna.png")));
-	     btnMenuInventario.setBounds(0, 195, 307, 62);
+	     btnMenuInventario.setBounds(0, 255, 307, 62);
 	     PanelMenu.add(btnMenuInventario);
 
 	     JButton btnMenuClientes = new JButton("Clientes");
@@ -208,7 +189,7 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuClientes.setFont(new Font("Sentic", Font.BOLD, 18));
 	     btnMenuClientes.setBorderPainted(false);
 	     btnMenuClientes.setBackground(new Color(51, 132, 182));
-	     btnMenuClientes.setBounds(0, 381, 307, 62);
+	     btnMenuClientes.setBounds(0, 194, 307, 62);
 	     PanelMenu.add(btnMenuClientes);
 	     
 	     // Roles de Empleados.

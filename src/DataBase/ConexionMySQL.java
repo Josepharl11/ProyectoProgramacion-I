@@ -14,12 +14,25 @@ public class ConexionMySQL {
 			if (connection == null) {
 				Runtime.getRuntime().addShutdownHook(new getClose());
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/SistemaVentas", "root", "reyesledesma11");
+				connection = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/SistemaVentas", "root", "reyesledesma11");
 				System.out.println("Entro al DB");
 			}
 			return connection;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new RuntimeException("Conexion Fallida", e);
+		}
+	}
+	
+	static class getClose extends Thread {
+		@Override
+		public void run() {
+			try {
+				Connection conn = ConexionMySQL.getConnection();
+				conn.close();
+			} catch (SQLException ex) {
+				throw new RuntimeException(ex);
+			}
 		}
 	}
 	
@@ -54,17 +67,5 @@ public class ConexionMySQL {
 	        e.printStackTrace();
 	    }
 	    return null;
-	}
-	
-	static class getClose extends Thread {
-		@Override
-		public void run() {
-			try {
-				Connection conn = ConexionMySQL.getConnection();
-				conn.close();
-			} catch (SQLException ex) {
-				throw new RuntimeException(ex);
-			}
-		}
 	}
 }

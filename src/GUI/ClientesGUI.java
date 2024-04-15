@@ -158,6 +158,7 @@ public class ClientesGUI extends JPanel {
 		panelFormulario.add(lblDocumento);
 		
 		JComboBox comboBox_Vendedor = new JComboBox();
+		comboBox_Vendedor.setModel(new DefaultComboBoxModel(new String [] {"Vendedor1", "Vendedor2"}));
 		comboBox_Vendedor.setBounds(581, 42, 234, 30);
 		panelFormulario.add(comboBox_Vendedor);
 		

@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * @author Cristian Ledesma
  */
+
 public class Empleado  extends Persona{
 
     private String cargo;
@@ -16,7 +17,7 @@ public class Empleado  extends Persona{
         this.contraseña = contraseña;
     }
 
-    public String getCargo() {
+	public String getCargo() {
         return cargo;
     }
 

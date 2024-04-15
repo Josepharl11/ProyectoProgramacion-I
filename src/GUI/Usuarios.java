@@ -153,7 +153,7 @@ public class Usuarios extends JPanel{
 		        EmpleadoCRUD.insertarEmpleado(empleado);
 				
 				DefaultTableModel modelo = (DefaultTableModel) tablaUsuarios.getModel();
-		        Object[] filasTabla = {numeroDocumento, tipoDocumento, nombreEmpleado, apellidoEmpleado, passwordEmpleado, tipoDocumento, cargoEmpleado, direccionEmpleado, telefonoEmpleado};
+		        Object[] filasTabla = {numeroDocumento, nombreEmpleado, apellidoEmpleado, passwordEmpleado, tipoDocumento, cargoEmpleado, direccionEmpleado, telefonoEmpleado};
 		        modelo.addRow(filasTabla);
 			}
 		});

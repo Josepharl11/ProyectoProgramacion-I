@@ -122,6 +122,7 @@ public class Ventas extends JPanel{
 	    panelFormulario.add(lblPrecio);
 	     
 	    textPrecio = new JTextField();
+	    textPrecio.setEditable(false);
 	    textPrecio.setBounds(238, 104, 193, 32);
 	    panelFormulario.add(textPrecio);
 	    textPrecio.setColumns(10);
@@ -224,18 +225,6 @@ public class Ventas extends JPanel{
 	     btnNewButton_2.setBounds(782, 174, 54, 35);
 	     panelFormulario.add(btnNewButton_2);
 	     
-	     JLabel lblCantidad_1 = new JLabel("Total de articulos:");
-	     lblCantidad_1.setForeground(new Color(29, 53, 87));
-	     lblCantidad_1.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidad_1.setBounds(21, 361, 162, 22);
-	     panelFormulario.add(lblCantidad_1);
-	     
-	     JLabel lblCantidadVariable = new JLabel("X");
-	     lblCantidadVariable.setForeground(new Color(29, 53, 87));
-	     lblCantidadVariable.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidadVariable.setBounds(193, 361, 72, 22);
-	     panelFormulario.add(lblCantidadVariable);
-	     
 	     JScrollPane tablaVentasV = new JScrollPane();
 	     tablaVentasV.setFont(new Font("Tahoma", Font.BOLD, 15));
 	     tablaVentasV.setBounds(21, 216, 854, 116);
@@ -335,18 +324,6 @@ public class Ventas extends JPanel{
 	     comboBox.setModel(new DefaultComboBoxModel(new String[] {"Efectivo", "Tarjeta", "Transferencia", "Nota de credito"}));
 	     comboBox.setBounds(756, 650, 147, 22);
 	     PanelVentas.add(comboBox);
-	     
-	     JLabel lblNo = new JLabel("Factura:");
-	     lblNo.setForeground(new Color(29, 53, 87));
-	     lblNo.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblNo.setBounds(688, 78, 75, 22);
-	     PanelVentas.add(lblNo);
-	     
-	     JLabel lblX = new JLabel("XXXXXXX");
-	     lblX.setForeground(new Color(29, 53, 87));
-	     lblX.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblX.setBounds(779, 78, 147, 22);
-	     PanelVentas.add(lblX);
 	     
 	     JPanel panelDatosCliente = new JPanel();
 	     panelDatosCliente.setBackground(Color.WHITE);

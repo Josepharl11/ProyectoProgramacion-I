@@ -10,10 +10,9 @@ import com.formdev.flatlaf.ui.FlatRoundBorder;
 import DataBase.ConexionMySQL;
 
 public class Main {
-	
 
 	public static void main (String []args) {
-		ConexionMySQL Sql = new ConexionMySQL();
+		ConexionMySQL query = new ConexionMySQL();
 		
 		//establecer y ajustar el look and feel
         FlatLightLaf.setup();

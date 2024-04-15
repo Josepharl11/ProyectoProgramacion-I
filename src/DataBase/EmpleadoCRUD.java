@@ -13,7 +13,7 @@ public class EmpleadoCRUD {
 	
     public static void insertarEmpleado(Empleado empleado) {
         Connection con = ConexionMySQL.getConnection();
-        String query = "INSERT INTO empleados (documento, tipodocumento, nombre, apellido, contraseña, cargo, direccion, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO empleados (documento, tipodocumento, nombre, apellido, contraseña, cargo, direccion, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1, empleado.getDocumento());
