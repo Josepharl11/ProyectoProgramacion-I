@@ -35,7 +35,8 @@ VALUES
 ('371-6578298-9', 'cedula', 'cristian', 'ledesma', 'lede15', 'Administrador', 'San Isidro', '8297578394'),
 ('681-7285912-3', 'cedula', 'waston', 'romero', 'thewaston', 'Administrador', 'Don Honorio', '8297563847'),
 ('867-1823919-5', 'cedula', 'elfrank', 'kelly', 'elstrimer', 'Administrador', 'San Isidro', '8491726373'),
-('728-3846718-9', 'cedula', 'freidy', 'nunez', 'freidynunez', 'Administrador', 'Villa Mella', '8298770493');
+('728-3846718-9', 'cedula', 'freidy', 'nunez', 'freidynunez', 'Administrador', 'Villa Mella', '8298770493'),
+('402-5743822-6', 'cedula', 'ejemplo', 'ejemplo2', 'ejemplo15', 'Empleado', 'La Caleta', '8295645743');
 
 SELECT * FROM empleados;
 

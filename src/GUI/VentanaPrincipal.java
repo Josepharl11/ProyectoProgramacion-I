@@ -77,13 +77,9 @@ public class VentanaPrincipal extends JFrame {
 	     JButton btnMenuVentas = new JButton("Ventas");
 	     btnMenuVentas.addActionListener(new ActionListener() {
 	    	    public void actionPerformed(ActionEvent e) {
-	    	        // Crea una instancia de la clase Ventas
 	    	        Ventas ventas = new Ventas();
-
-	    	        // Establece el panel de ventas como el componente a mostrar en el JScrollPane
 	    	        scrollPaneContenido.setViewportView(ventas);
 
-	    	        // Actualiza la interfaz de usuario
 	    	        scrollPaneContenido.revalidate();
 	    	        scrollPaneContenido.repaint();
 	    	    }
@@ -215,10 +211,17 @@ public class VentanaPrincipal extends JFrame {
 	     btnMenuClientes.setBounds(0, 381, 307, 62);
 	     PanelMenu.add(btnMenuClientes);
 	     
+	     // Roles de Empleados.
+	     if (!cargoEmpleado.equalsIgnoreCase("Administrador")) {
+	         btnMenuProveedores.setVisible(false);
+	         btnMenuUsuarios.setVisible(false);
+	         btnMenuInventario.setVisible(false);
+	     }
+	     
 	     btnMenuClientes.addActionListener(new ActionListener () {
 	    	 public void actionPerformed(ActionEvent e) {
 	        	 
-	            ClientesGUI clientesGUI = new ClientesGUI();
+	    		 ClientesGUI clientesGUI = new ClientesGUI();
 	             // Agrega el inventario al panel contenido del JScrollPane
 	             scrollPaneContenido.setViewportView(clientesGUI);
 	             
