@@ -9,6 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
@@ -28,124 +35,164 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Class.Clientes;
+import Class.DetalleFacturas;
+import Class.Facturas;
+import Class.Producto;
+import DataBase.ClientesCRUD;
+import DataBase.ConexionMySQL;
+import DataBase.DetalleFacturasCRUD;
+import DataBase.FacturaCRUD;
+import DataBase.ProductoCRUD;
+
 import java.awt.SystemColor;
 
 public class Ventas extends JPanel{
-	private JTextField txtPrecio;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textPrecio;
+	private JTextField textITBIS;
+	private JTextField textExistencia;
 	private JTable tablaVentas;
-	private JTextField txtNombreCliente;
-	private JTextField txtRNC;
+	private JTextField textNombreCliente;
+	private JTextField textDocumento;
 	private JTextField txtSubTotal;
 	private JTextField txtITBIS;
 	private JTextField txtTotal;
 	private JTextField textField_Fecha;
+	private JTextField textProducto;
+	private JTextField textIdProducto;
+	
+	private List<Producto> listaProductos = new ArrayList<>();
+    private List<DetalleFacturas> detallesFactura = new ArrayList<>();
+    private double subtotal = 0.0;
+    private double total = 0.0;
+    
 	public Ventas() {
 		setLayout(new BorderLayout(0, 0));
 		setSize(960, 761);
 		
 		JPanel PanelVentas = new JPanel();
 		PanelVentas.setBackground(Color.WHITE);
-	     PanelVentas.setSize (960, 761);
-	     add(PanelVentas, BorderLayout.CENTER);
-	     PanelVentas.setLayout(null);
+	    PanelVentas.setSize (960, 761);
+	    add(PanelVentas, BorderLayout.CENTER);
+	    PanelVentas.setLayout(null);
+     
+	    JLabel lblNewLabel = new JLabel("Factura");
+	    lblNewLabel.setIconTextGap(20);
+	    lblNewLabel.setForeground(new Color(29, 53, 87));
+	    lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/mdi_cart.png")));
+	    lblNewLabel.setBounds(27, 24, 286, 61);
+	    lblNewLabel.setFont(new Font("Sentic", Font.BOLD, 42));
+	    PanelVentas.add(lblNewLabel);
 	     
+	    JScrollPane scrollPane_formulario = new JScrollPane();
+	    scrollPane_formulario.setBounds(27, 111, 907, 401);
+	    PanelVentas.add(scrollPane_formulario);
+	     
+	    JPanel panelFormulario = new JPanel();
+	    panelFormulario.setBackground(new Color(215, 215, 215));
+	    scrollPane_formulario.setViewportView(panelFormulario);
+	    panelFormulario.setLayout(null);
+	     
+	    JLabel lblArticulo = new JLabel("Articulo");
+	    lblArticulo.setForeground(new Color(29, 53, 87));
+	    lblArticulo.setFont(new Font("Helvetica", Font.BOLD, 18));
+	    lblArticulo.setBounds(173, 11, 107, 22);
+	    panelFormulario.add(lblArticulo);
+	     
+	    JSpinner spinnerCantidad = new JSpinner();
+	    spinnerCantidad.setRequestFocusEnabled(false);
+	    spinnerCantidad.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+	    spinnerCantidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    spinnerCantidad.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+	    spinnerCantidad.setModel(new SpinnerNumberModel(1, 1, 999, 1));
+	    spinnerCantidad.setBounds(21, 104, 187, 32);
+	    panelFormulario.add(spinnerCantidad);
+	     
+	    JLabel lblCantidad = new JLabel("Cantidad");
+	    lblCantidad.setForeground(new Color(29, 53, 87));
+	    lblCantidad.setFont(new Font("Helvetica", Font.BOLD, 18));
+	    lblCantidad.setBounds(21, 82, 107, 22);
+	    panelFormulario.add(lblCantidad);
+	     
+	    JLabel lblPrecio = new JLabel("Precio");
+	    lblPrecio.setForeground(new Color(29, 53, 87));
+	    lblPrecio.setFont(new Font("Helvetica", Font.BOLD, 18));
+	    lblPrecio.setBounds(238, 82, 107, 22);
+	    panelFormulario.add(lblPrecio);
+	     
+	    textPrecio = new JTextField();
+	    textPrecio.setBounds(238, 104, 193, 32);
+	    panelFormulario.add(textPrecio);
+	    textPrecio.setColumns(10);
+	     
+	    textITBIS = new JTextField();
+	    textITBIS.setEnabled(false);
+	    textITBIS.setText("18%");
+	    textITBIS.setColumns(10);
+	    textITBIS.setBounds(453, 104, 106, 32);
+	    panelFormulario.add(textITBIS);
 
+	    JLabel lblPrecio_1 = new JLabel("% ITBIS");
+	    lblPrecio_1.setForeground(new Color(29, 53, 87));
+	    lblPrecio_1.setFont(new Font("Helvetica", Font.BOLD, 18));
+	    lblPrecio_1.setBounds(453, 82, 106, 22);
+	    panelFormulario.add(lblPrecio_1);
 	     
-	     JLabel lblNewLabel = new JLabel("Factura");
-	     lblNewLabel.setIconTextGap(20);
-	     lblNewLabel.setForeground(new Color(29, 53, 87));
-	     lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/mdi_cart.png")));
-	     lblNewLabel.setBounds(27, 24, 286, 61);
-	     lblNewLabel.setFont(new Font("Sentic", Font.BOLD, 42));
-	     PanelVentas.add(lblNewLabel);
-	     
-	     JScrollPane scrollPane_formulario = new JScrollPane();
-	     scrollPane_formulario.setBounds(27, 111, 907, 401);
-	     PanelVentas.add(scrollPane_formulario);
-	     
-	     JPanel panelFormulario = new JPanel();
-	     panelFormulario.setBackground(new Color(215, 215, 215));
-	     scrollPane_formulario.setViewportView(panelFormulario);
-	     panelFormulario.setLayout(null);
-	     
-	     JLabel lblArticulo = new JLabel("Articulo");
-	     lblArticulo.setForeground(new Color(29, 53, 87));
-	     lblArticulo.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblArticulo.setBounds(21, 11, 107, 22);
-	     panelFormulario.add(lblArticulo);
-	     
-	     JSpinner spinnerCantidad = new JSpinner();
-	     spinnerCantidad.setRequestFocusEnabled(false);
-	     spinnerCantidad.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-	     spinnerCantidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	     spinnerCantidad.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-	     spinnerCantidad.setModel(new SpinnerNumberModel(1, 1, 999, 1));
-	     spinnerCantidad.setBounds(21, 104, 187, 32);
-	     panelFormulario.add(spinnerCantidad);
-	     
-	     JComboBox comboProductos = new JComboBox();
-	     comboProductos.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-	     comboProductos.setModel(new DefaultComboBoxModel(new String[] {"Consola PlayStation 5", "Consola Xbox Series X", "Nintendo Switch", "Controlador inalámbrico DualSense para PlayStation 5", "Controlador inalámbrico Xbox Elite Series 2", "Joy-Con para Nintendo Switch", "Juego \"The Legend of Zelda: Breath of the Wild\" para Nintendo Switch", "Juego \"Cyberpunk 2077\" para PlayStation 4", "Juego \"Halo Infinite\" para Xbox Series X", "Auriculares con cancelación de ruido para gaming", "Teclado mecánico RGB para gaming", "Ratón gaming con sensor óptico de alta precisión", "Alfombrilla de ratón extragrande para gaming", "Silla gaming ergonómica", "Mesa gaming con soporte para varios monitores", "Monitor gaming de alta frecuencia de actualización (Hz)", "Tarjeta gráfica NVIDIA GeForce RTX 3080", "Tarjeta gráfica AMD Radeon RX 6800 XT", "Memoria RAM DDR4 de alta velocidad para gaming", "SSD NVMe de gran capacidad para almacenamiento de juegos", "Disco duro externo para almacenamiento adicional", "Cámara web Full HD para streaming de juegos", "Micrófono USB con cancelación de ruido para streaming", "Capturadora de video para grabar partidas de juego", "Mando arcade para juegos retro", "Figuras de acción de personajes de videojuegos", "Pósters y lienzos decorativos de videojuegos", "Guías y libros de arte de videojuegos populares", "Tarjetas de regalo para plataformas de juegos en línea", "Suscripciones a servicios de juegos en streaming como Xbox Game Pass o PlayStation Plus."}));
-	     comboProductos.setBounds(21, 33, 854, 32);
-	     panelFormulario.add(comboProductos);
-	     
-	     JLabel lblCantidad = new JLabel("Cantidad");
-	     lblCantidad.setForeground(new Color(29, 53, 87));
-	     lblCantidad.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblCantidad.setBounds(21, 82, 107, 22);
-	     panelFormulario.add(lblCantidad);
-	     
-	     JLabel lblPrecio = new JLabel("Precio");
-	     lblPrecio.setForeground(new Color(29, 53, 87));
-	     lblPrecio.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblPrecio.setBounds(238, 82, 107, 22);
-	     panelFormulario.add(lblPrecio);
-	     
-	     txtPrecio = new JTextField();
-	     txtPrecio.setBounds(238, 104, 193, 32);
-	     panelFormulario.add(txtPrecio);
-	     txtPrecio.setColumns(10);
-	     
-	     textField_2 = new JTextField();
-	     textField_2.setEnabled(false);
-	     textField_2.setText("18%");
-	     textField_2.setColumns(10);
-	     textField_2.setBounds(453, 104, 106, 32);
-	     panelFormulario.add(textField_2);
+	    textExistencia = new JTextField();
+	    textExistencia.setEnabled(false);
+	    textExistencia.setText("0");
+	    textExistencia.setColumns(10);
+	    textExistencia.setBounds(592, 104, 193, 32);
+	    panelFormulario.add(textExistencia);
 
-	     JLabel lblPrecio_1 = new JLabel("% ITBIS");
-	     lblPrecio_1.setForeground(new Color(29, 53, 87));
-	     lblPrecio_1.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblPrecio_1.setBounds(453, 82, 106, 22);
-	     panelFormulario.add(lblPrecio_1);
+	    JLabel lblPrecio_2 = new JLabel("Existencia");
+	    lblPrecio_2.setForeground(new Color(29, 53, 87));
+	    lblPrecio_2.setFont(new Font("Helvetica", Font.BOLD, 18));
+	    lblPrecio_2.setBounds(592, 82, 107, 22);
+	    panelFormulario.add(lblPrecio_2);
 	     
-	     textField_3 = new JTextField();
-	     textField_3.setEnabled(false);
-	     textField_3.setText("0");
-	     textField_3.setColumns(10);
-	     textField_3.setBounds(592, 104, 193, 32);
-	     panelFormulario.add(textField_3);
-
-	     JLabel lblPrecio_2 = new JLabel("Existencia");
-	     lblPrecio_2.setForeground(new Color(29, 53, 87));
-	     lblPrecio_2.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     lblPrecio_2.setBounds(592, 82, 107, 22);
-	     panelFormulario.add(lblPrecio_2);
-	     
-	     JButton btnNewButton = new JButton("Añadir");
-	     btnNewButton.addActionListener(new ActionListener() {
-	     	public void actionPerformed(ActionEvent e) {
-	            DefaultTableModel model = (DefaultTableModel) tablaVentas.getModel();
+	    JButton btnNewButton = new JButton("Añadir");
+	    btnNewButton.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	            DefaultTableModel modelo = (DefaultTableModel) tablaVentas.getModel();
 	            
-	            double precioProducto = Double.parseDouble(txtPrecio.getText());
+	            double precioProducto = Double.parseDouble(textPrecio.getText());
 	            int cantidadProducto = (int) spinnerCantidad.getValue();
-	            String nombreProducto = (String) comboProductos.getSelectedItem();
+	            String nombreProducto = (String) textProducto.getText();
+	            int idProducto = Integer.parseInt(textIdProducto.getText());
 	            
-	            Object[] filaTabla = {cantidadProducto, nombreProducto, precioProducto};
+	            boolean productoExistente = false;
+	            for (int i = 0; i < modelo.getRowCount(); i++) {
+	                String nombre = (String) modelo.getValueAt(i, 1);
+	                if (nombre.equals(nombreProducto)) {
+	                    productoExistente = true;
+	                    break;
+	                }
+	            }
 	            
-	            model.addRow(filaTabla);
+	            if (!productoExistente) {
+	                Object[] filaTabla = {cantidadProducto, nombreProducto, precioProducto, idProducto};
+	                modelo.addRow(filaTabla);
+	                
+	                double subtotal = 0.0;
+	                for (int i = 0; i < modelo.getRowCount(); i++) {
+	                    double precio = (double) modelo.getValueAt(i, 2);
+	                    int cantidad = (int) modelo.getValueAt(i, 0);
+	                    subtotal += precio * cantidad;
+	                }
+	                txtSubTotal.setText(String.format("%.2f", subtotal));
+
+	                // Calcular ITBIS (18% del subtotal)
+	                double itbis = subtotal * 0.18;
+	                txtITBIS.setText(String.format("%.2f", itbis));
+
+	                // Calcular total (subtotal + ITBIS)
+	                double total = subtotal + itbis;
+	                txtTotal.setText(String.format("%.2f", total));
+	            } else {
+	                JOptionPane.showMessageDialog(null, "El producto ya está en la tabla.");
+	            }
 	     	}
 	     });
 	     btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -201,45 +248,47 @@ public class Ventas extends JPanel{
 	     	new Object[][] {
 	     	},
 	     	new String[] {
-	     		"Cantidad", "Articulo", "Precio"
+	     			"Cantidad", "Articulo", "Precio", "id"
 	     	}
 	     ));
 	     
-	     JButton btnFormaDePago = new JButton("Guardar");
-	     btnFormaDePago.setForeground(Color.WHITE);
-	     btnFormaDePago.setFont(new Font("Segoe UI", Font.BOLD, 14));
-	     btnFormaDePago.setBorderPainted(false);
-	     btnFormaDePago.setBackground(new Color(32, 178, 170));
-	     btnFormaDePago.setBounds(756, 694, 98, 35);
-	     PanelVentas.add(btnFormaDePago);
-	     
-	     JButton btnEliminarFacturafinal = new JButton("");
-	     btnEliminarFacturafinal.addActionListener(new ActionListener() {
-	     	public void actionPerformed(ActionEvent e) {
-	     	}
-	     });
+	     JButton btnGuardar = new JButton("Guardar");
+	     btnGuardar.setForeground(Color.WHITE);
+	     btnGuardar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+	     btnGuardar.setBorderPainted(false);
+	     btnGuardar.setBackground(new Color(32, 178, 170));
+	     btnGuardar.setBounds(788, 697, 98, 35);
+	     PanelVentas.add(btnGuardar);
 	     
 	     //______________________________
-	     txtPrecio.setText("$");
+	     textPrecio.setText("$");
+	     
+	     textProducto = new JTextField();
+	     textProducto.setColumns(10);
+	     textProducto.setBounds(173, 39, 702, 32);
+	     panelFormulario.add(textProducto);
+	     
+	     JLabel lblIdProducto = new JLabel("Id Producto");
+	     lblIdProducto.setForeground(new Color(29, 53, 87));
+	     lblIdProducto.setFont(new Font("Dialog", Font.BOLD, 18));
+	     lblIdProducto.setBounds(21, 11, 107, 22);
+	     panelFormulario.add(lblIdProducto);
+	     
+	     textIdProducto = new JTextField();
+	     textIdProducto.setColumns(10);
+	     textIdProducto.setBounds(21, 39, 107, 32);
+	     panelFormulario.add(textIdProducto);
 
-	     txtPrecio.addFocusListener(new FocusListener() {
+	     textPrecio.addFocusListener(new FocusListener() {
 	         public void focusGained(FocusEvent e) {
-	             if (txtPrecio.getText().equals("$")) {
-	                 txtPrecio.setText("");
+	             if (textPrecio.getText().equals("$")) {
+	                 textPrecio.setText("");
 	             }
 	         }
 	         
 	         public void focusLost(FocusEvent e) {
 	         }
 	     });
-
-	     //______________________________
-
-	     
-	     btnEliminarFacturafinal.setBorder(new LineBorder(new Color(220, 20, 60), 2, true));
-	     btnEliminarFacturafinal.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/fluent_delete-16-filledrojo.png")));
-	     btnEliminarFacturafinal.setBounds(864, 694, 39, 35);
-	     PanelVentas.add(btnEliminarFacturafinal);
 	     
 	     JLabel lblCantidad_1_1_1 = new JLabel("SubTotal:");
 	     lblCantidad_1_1_1.setForeground(new Color(29, 53, 87));
@@ -301,50 +350,116 @@ public class Ventas extends JPanel{
 	     
 	     JPanel panelDatosCliente = new JPanel();
 	     panelDatosCliente.setBackground(Color.WHITE);
-	     panelDatosCliente.setBounds(27, 523, 310, 154);
+	     panelDatosCliente.setBounds(27, 523, 344, 154);
 	     PanelVentas.add(panelDatosCliente);
 	     panelDatosCliente.setLayout(null);
 	     
-	     	     JLabel lblCantidad_1_1 = new JLabel("Datos cliente:");
-	     	     lblCantidad_1_1.setBounds(26, 21, 162, 22);
-	     	     panelDatosCliente.add(lblCantidad_1_1);
-	     	     lblCantidad_1_1.setForeground(new Color(29, 53, 87));
-	     	     lblCantidad_1_1.setFont(new Font("Helvetica", Font.BOLD, 18));
-	     	     
-	     	     JLabel lblNewLabel_1 = new JLabel("Nombre:");
-	     	     lblNewLabel_1.setBounds(26, 54, 70, 13);
-	     	     panelDatosCliente.add(lblNewLabel_1);
-	     	     lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
-	     	     lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
-	     	     
-	     	     txtNombreCliente = new JTextField();
-	     	     txtNombreCliente.setBounds(111, 54, 168, 19);
-	     	     panelDatosCliente.add(txtNombreCliente);
-	     	     txtNombreCliente.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-	     	     txtNombreCliente.setColumns(10);
-	     	     
-	     	     txtRNC = new JTextField();
-	     	     txtRNC.setBounds(112, 82, 168, 19);
-	     	     panelDatosCliente.add(txtRNC);
-	     	     txtRNC.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-	     	     txtRNC.setColumns(10);
-	     	     
-	     	     JLabel lblNewLabel_1_1 = new JLabel("RNC:");
-	     	     lblNewLabel_1_1.setBounds(26, 85, 70, 13);
-	     	     panelDatosCliente.add(lblNewLabel_1_1);
-	     	     lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
-	     	     lblNewLabel_1_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
-	     	     
-	     	     JLabel lblNewLabel_1_1_1_1 = new JLabel("Fecha");
-	     	     lblNewLabel_1_1_1_1.setBounds(25, 115, 70, 13);
-	     	     panelDatosCliente.add(lblNewLabel_1_1_1_1);
-	     	     lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
-	     	     lblNewLabel_1_1_1_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
-	     	     
-	     	     textField_Fecha = new JTextField();
-	     	     textField_Fecha.setBounds(111, 112, 168, 19);
-	     	     panelDatosCliente.add(textField_Fecha);
-	     	     textField_Fecha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-	     	     textField_Fecha.setColumns(10);
+ 	     JLabel lblCantidad_1_1 = new JLabel("Datos cliente:");
+ 	     lblCantidad_1_1.setBounds(26, 21, 162, 22);
+ 	     panelDatosCliente.add(lblCantidad_1_1);
+ 	     lblCantidad_1_1.setForeground(new Color(29, 53, 87));
+ 	     lblCantidad_1_1.setFont(new Font("Helvetica", Font.BOLD, 18));
+ 	     
+ 	     JLabel lblNewLabel_1 = new JLabel("Nombre:");
+ 	     lblNewLabel_1.setBounds(50, 54, 70, 13);
+ 	     panelDatosCliente.add(lblNewLabel_1);
+ 	     lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
+ 	     lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
+ 	     
+ 	     textNombreCliente = new JTextField();
+ 	     textNombreCliente.setBounds(130, 54, 168, 19);
+ 	     panelDatosCliente.add(textNombreCliente);
+ 	     textNombreCliente.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+ 	     textNombreCliente.setColumns(10);
+ 	     
+ 	     textDocumento = new JTextField();
+ 	     textDocumento.setBounds(131, 82, 168, 19);
+ 	     panelDatosCliente.add(textDocumento);
+ 	     textDocumento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+ 	     textDocumento.setColumns(10);
+ 	     
+ 	     JLabel lblNewLabel_1_1 = new JLabel("Documento:");
+ 	     lblNewLabel_1_1.setBounds(26, 85, 94, 13);
+ 	     panelDatosCliente.add(lblNewLabel_1_1);
+ 	     lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
+ 	     lblNewLabel_1_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
+ 	     
+ 	     JLabel lblNewLabel_1_1_1_1 = new JLabel("Fecha");
+ 	     lblNewLabel_1_1_1_1.setBounds(50, 115, 70, 13);
+ 	     panelDatosCliente.add(lblNewLabel_1_1_1_1);
+ 	     lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
+ 	     lblNewLabel_1_1_1_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
+ 	     
+ 	     textField_Fecha = new JTextField();
+ 	     textField_Fecha.setBounds(130, 112, 168, 19);
+ 	     panelDatosCliente.add(textField_Fecha);
+ 	     textField_Fecha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+ 	     textField_Fecha.setColumns(10);
+ 	     
+ 	     btnGuardar.addActionListener(new ActionListener() {
+ 	    	 public void actionPerformed(ActionEvent e) {
+ 	    		 String nombreCliente = textNombreCliente.getText();
+ 	    		 String documentoCliente = textDocumento.getText();
+ 	    		 String fechaGeneracion = textField_Fecha.getText();
+ 	    		 String tipoPago = comboBox.getSelectedItem().toString();
+ 	    		 double totalFactura = Double.parseDouble(txtTotal.getText());
+
+ 	    		 int idFactura = FacturaCRUD.insertarFactura(nombreCliente, documentoCliente, fechaGeneracion, tipoPago, totalFactura);
+
+ 	    		 if (idFactura != -1) {
+ 	    			 DefaultTableModel modelo = (DefaultTableModel) tablaVentas.getModel();
+ 	    			 for (int i = 0; i < modelo.getRowCount(); i++) {
+ 	    				 int cantidad = (int) modelo.getValueAt(i, 0);
+ 	    				 String nombreProducto = (String) modelo.getValueAt(i, 1);
+ 	    				 double precio = (double) modelo.getValueAt(i, 2);
+ 	    				 int idProducto = (int) modelo.getValueAt(i, 3);
+
+ 	    				 DetalleFacturasCRUD.insertarDetalleFactura(idFactura, idProducto, nombreProducto, cantidad, precio);
+ 	    			 }
+
+ 	    			 JOptionPane.showMessageDialog(null, "Factura guardada exitosamente.");
+ 	    		 } else {
+ 	              	JOptionPane.showMessageDialog(null, "Error al guardar la factura.");
+ 	    		 }
+
+ 	           JOptionPane.showMessageDialog(null, "Factura guardada exitosamente.");
+ 	    	 }
+ 	     });
+ 	    
+ 	   textIdProducto.addActionListener(new ActionListener() {
+ 		    public void actionPerformed(ActionEvent e) {
+ 		        int idProducto = Integer.parseInt(textIdProducto.getText());
+ 		        
+ 		        Producto producto = ProductoCRUD.obtenerProductoPorId(idProducto);
+ 		        
+ 		        if (producto != null) {
+ 		        	textIdProducto.setText(String.valueOf(producto.getId()));
+ 		            textProducto.setText(producto.getNombre());
+ 		            textPrecio.setText(String.valueOf(producto.getPrecio()));
+ 		            textExistencia.setText(String.valueOf(producto.getCantidad()));
+ 		        } else {
+ 		            textProducto.setText("");
+ 		            textPrecio.setText("");
+ 		            textExistencia.setText("");
+ 		            JOptionPane.showMessageDialog(null, "Producto no encontrado");
+ 		        }
+ 		    }
+ 		});
+ 	   
+ 	  textDocumento.addActionListener(new ActionListener() {
+ 		    public void actionPerformed(ActionEvent e) {
+ 		        String documentoCliente = textDocumento.getText();
+ 		        
+ 		        Clientes cliente = ClientesCRUD.obtenerClientePorDocumento(documentoCliente);
+ 		        
+ 		        if (cliente != null) {
+ 		            textNombreCliente.setText(cliente.getNombre());
+ 		        } else {
+ 		            textNombreCliente.setText("");
+
+ 		            JOptionPane.showMessageDialog(null, "Cliente no encontrado");
+ 		        }
+ 		    }
+ 		});
 	}
 }

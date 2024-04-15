@@ -96,4 +96,31 @@ public class ClientesCRUD {
         }
         return clientes;
     }
+    
+    public static Clientes obtenerClientePorDocumento(String documentoCliente) {
+        Clientes cliente = null;
+        try {
+            Connection con = ConexionMySQL.getConnection();
+            String query = "SELECT * FROM clientes WHERE documento = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, documentoCliente);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String nombre = rs.getString("nombre");
+                String tipoDocumento = rs.getString("tipoDocumento");
+                String direccion = rs.getString("direccion");
+                String telefono = rs.getString("telefono");
+                String email = rs.getString("email");
+                String tipoCliente = rs.getString("tipoCliente");
+                String vendedor = rs.getString("vendedor");
+                String estado = rs.getString("estado");
+                String fechaIngreso = rs.getString("fechaIngreso");
+                
+                cliente = new Clientes(nombre, documentoCliente, tipoDocumento, direccion, telefono, email, tipoCliente, vendedor, estado, fechaIngreso);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cliente;
+    }
 }

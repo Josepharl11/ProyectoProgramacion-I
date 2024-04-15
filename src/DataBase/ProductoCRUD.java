@@ -82,4 +82,28 @@ public class ProductoCRUD {
         }
         return productos;
     }
+    
+    public static Producto obtenerProductoPorId(int idProducto) {
+        Producto producto = null;
+        try {
+            Connection con = ConexionMySQL.getConnection();
+            String query = "SELECT * FROM productos WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, idProducto);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String referencia = rs.getString("referencia");
+                String tipo = rs.getString("tipo");
+                String marca = rs.getString("marca");
+                int cantidad = rs.getInt("cantidad");
+                double precio = rs.getDouble("precio");
+                producto = new Producto(id, nombre, referencia, tipo, marca, cantidad, precio);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return producto;
+    }
 }

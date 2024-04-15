@@ -50,6 +50,10 @@ CREATE TABLE productos (
     precio DECIMAL(10, 2)
 );
 
+INSERT INTO productos (id, nombre, referencia, tipo, marca, cantidad, precio) 
+VALUES
+(2, 'producto2', 'no se', 'juego', 'play station', 5, 750.00);
+
 SELECT * FROM productos;
 
 DROP TABLE proveedores;
@@ -66,23 +70,26 @@ SELECT * FROM proveedores;
 
 DROP TABLE facturas;
 CREATE TABLE facturas (
-    id_factura INT PRIMARY KEY,
-    fecha DATE,
-    cliente VARCHAR(50),
-    total DOUBLE,
-    FOREIGN KEY (cliente) REFERENCES clientes(id_cliente)
+    id_factura INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_documento VARCHAR(50),
+    cliente_nombre VARCHAR(50),
+    fecha_generacion DATE,
+    tipo_pago VARCHAR(20),
+    total DECIMAL(10, 2)
 );
 
 DROP TABLE detalle_factura;
 CREATE TABLE detalle_factura (
-    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     id_factura INT,
     id_producto INT,
+    nombre_producto VARCHAR(50),
     cantidad INT,
-    precio_unitario DOUBLE,
-    FOREIGN KEY (id_factura) REFERENCES facturas(id_factura),
-    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+    precio DECIMAL(10, 2)
 );
+
+SELECT * FROM facturas;
+SELECT * FROM detalle_factura;
 
 /*
 En caso de que si hagamos contabilidad en un futuro:

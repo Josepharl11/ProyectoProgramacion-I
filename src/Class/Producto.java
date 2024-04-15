@@ -20,6 +20,14 @@ public class Producto implements IProducto {
         this.precio = precio;
     }
 
+	public Producto(int idProducto, String nombre2, int existencia, double precio2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Producto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
     public int getId() {
         return id;

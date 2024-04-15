@@ -17,9 +17,8 @@ public class Main {
 		
 		//establecer y ajustar el look and feel
         FlatLightLaf.setup();
-		
         
-        //ajustanto el look and fell
+        //ajustanto el look and feel
         //Para redondear algunos elementos
         UIManager.put( "Button.arc", 15 );
         UIManager.put( "JPanel.arc", 99 );
